@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { PRODUCT_CATEGORIES } from "./productData.js";
 
 function App() {
   return (

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getMainCategories, getSubCategories, getProducts } from "./scrape.js";
+import "nes.css/css/nes.min.css";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [mainCategories, setMainCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState();
 
   const [selectedCategory, setSelectedCategory] = useState();
   const [selectedSubCategory, setSelectedSubCategory] = useState();
@@ -35,7 +36,7 @@ const App = () => {
     // when selecting a new category sub categories and products are removed
     setSelectedSubCategory();
     setSubCategories([]);
-    setProducts([]);
+    setProducts();
     if (!!selectedCategory) {
       fetchData();
     }
@@ -52,7 +53,7 @@ const App = () => {
     };
 
     // when selecting a sub category all products are removed
-    setProducts([]);
+    setProducts();
     if (!!selectedCategory) {
       fetchData();
     }
@@ -71,7 +72,9 @@ const App = () => {
 
               return (
                 <li>
-                  <b onClick={onClick}>{category.title}</b>
+                  <b onClick={onClick} className="nes-btn is-success">
+                    {category.title}
+                  </b>
                 </li>
               );
             })}
@@ -83,23 +86,35 @@ const App = () => {
               const onClick = () => setSelectedSubCategory(category);
               return (
                 <li>
-                  <b onClick={onClick}>{category.title}</b>
+                  <b onClick={onClick} className="nes-btn is-primary">
+                    {category.title}
+                  </b>
                 </li>
               );
             })}
           </ul>
         )}
         {products && (
-          <ul>
-            {products.map((product) => {
-              return (
-                <li>
-                  {product.title}
-                  {product.price}
-                </li>
-              );
-            })}
-          </ul>
+          <div className="TableContainer">
+            <table className="nes-table is-bordered">
+              <thead>
+                <tr>
+                  <th>Produkt</th>
+                  <th>Pris</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => {
+                  return (
+                    <tr>
+                      <td>{product.title}</td>
+                      <td>{product.price}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
         {isLoading && (
           <div>Vent et øyeblikk mens vi henter kolonial sine deilige varer</div>

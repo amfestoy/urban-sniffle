@@ -1,3 +1,26 @@
 .App {
+  font-family: retro;
   text-align: center;
+}
+
+.TableContainer {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: inline;
+}
+
+td {
+  text-align: left;
+}
+
+@font-face {
+  font-family: retro;
+  src: url("./kongtext.ttf");
 }
